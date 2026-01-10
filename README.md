@@ -1,5 +1,5 @@
 # LMArena-Manager
-🎛️ Tampermonkey script for LMArena - Filter, categorize &amp; manage AI models with custom visibility, company sorting, and multi-arena support (LLM/Search/Image/Code/Video)
+🎛️ LMArena模型管理油猴脚本 - 支持筛选过滤、分类管理、自定义显示、公司排序，覆盖LLM/Search/Image/Code/Video多Arena模式
 # 🎛️ LMArena Manager
 
 > 智能管理 LMArena 模型显示的油猴脚本
@@ -71,7 +71,7 @@
 
 <details>
 <summary>点击展开完整列表</summary>
-
+（多个领域涉及的仅展示一次）
 ### LLM
 Google, OpenAI, Anthropic, xAI, DeepSeek, Qwen, MoonshotAI, Zhipu, Baidu, MistralAI, LongCat, Xiaomi, Tencent, Minimax, Amazon, PrimeIntellect, IBM, Cohere, AntGroup, Stepfun, Meta, Nvidia, AllenAI, Inception
 
@@ -98,7 +98,7 @@ Kwai
 
 ## 📝 更新日志
 
-### v4.1.0 (2025-xx-xx)
+### v4.1.0 (2026.1.10)
 - ✨ 支持5种Arena模式：LLM/Search/Image/Code/Video
 - ✨ 智能识别60+公司
 - ✨ 公司拖拽排序
@@ -106,7 +106,7 @@ Kwai
 - ✨ 清空列表功能
 - 🐛 修复Code模式分类逻辑
 
-### v3.0.0
+### v1.0.0
 - 初始版本
 
 ## 🤝 贡献
