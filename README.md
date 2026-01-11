@@ -1,11 +1,9 @@
-# LMArena-Manager
-🎛️ LMArena模型管理油猴脚本 - 支持筛选过滤、分类管理、自定义显示、公司排序，覆盖LLM/Search/Image/Code/Video多Arena模式
-#十七条️larena Manager
+# 🎛️ LMArena Manager
 
 > 智能管理 LMArena 模型显示的油猴脚本
 
-[![条款:](https://img.shields.io/badge/License-MIT-yellow.svg)] (https://opensource.org/licenses/MIT)
-[! [Tampermonkey] (https://img.shields.io/badge/Tampermonkey-Ready-brightgreen.svg)) (https://www.tampermonkey.net/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Tampermonkey](https://img.shields.io/badge/Tampermonkey-Ready-brightgreen.svg)](https://www.tampermonkey.net/)
 
 ## ✨ 功能特性
 
@@ -58,33 +56,33 @@
 
 <!-- 建议添加截图 -->
 ![主界面](./screenshots/edit.png)
-![效果图](./screenshots/result.png)
+![效果](./screenshots/result.png)
 
 ## ⌨️ 快捷键
 
 | 快捷键 | 功能 |
 |--------|------|
-| `Ctrl Shift M` | 打开/关闭管理面板 |
+| `Ctrl+Shift+M` | 打开/关闭管理面板 |
 | `Esc` | 关闭当前弹窗 |
 
 ## 🏢 支持的公司
 
-< details>
+<details>
 <summary>点击展开完整列表</summary>
-（多个领域涉及的仅展示一次）
+（重复公司只展示一次）
 ### LLM
-b谷歌、OpenAI、Anthropic、xAI、DeepSeek、Qwen、MoonshotAI、知璞、百度、MistralAI、LongCat、小米、腾讯、Minimax、亚马逊、PrimeIntellect、IBM、Cohere、AntGroup、Stepfun、Meta、Nvidia、AllenAI、盗梦空间
+Google, OpenAI, Anthropic, xAI, DeepSeek, Qwen, MoonshotAI, Zhipu, Baidu, MistralAI, LongCat, Xiaomi, Tencent, Minimax, Amazon, PrimeIntellect, IBM, Cohere, AntGroup, Stepfun, Meta, Nvidia, AllenAI, Inception
 
-# # #搜索
-困惑,Diffbot
+### Search
+Perplexity, Diffbot
 
-# # #图像
-字节跳动、胜树、微软、Flux、Recraft、Luma、Ideogram、Reve、leonardo
+### Image
+Bytedance, ShengShu, MicrosoftAI, Flux, Recraft, Luma, Ideogram, Reve, LeonardoAI
 
-# # #代码
+### Code
 Kwai
 
-< / details>
+</details>
 
 ## 🏷️ 类型标签
 
@@ -98,7 +96,7 @@ Kwai
 
 ## 📝 更新日志
 
-### v4.1.0 (2026.1.10)
+### v4.1.0 (2025-xx-xx)
 - ✨ 支持5种Arena模式：LLM/Search/Image/Code/Video
 - ✨ 智能识别60+公司
 - ✨ 公司拖拽排序
@@ -122,7 +120,7 @@ Kwai
 
 ## 🙏 致谢
 
-- [LMArena](https://lmarena.ai) - LMSYS 提供的模型评测平台
+- [LMArena](https://lmarena.ai) - 模型评测平台
 - [Tampermonkey](https://www.tampermonkey.net/) - 用户脚本管理器
 
 ---
