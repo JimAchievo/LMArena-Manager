@@ -34,7 +34,7 @@
 
 **方式一：从 Greasy Fork 安装（推荐）**
 
-[![Install from Greasy Fork](https://img.shields.io/badge/Install-Greasy%20Fork-red)](https://greasyfork.org/scripts/xxx)
+[![Install from Greasy Fork](https://img.shields.io/badge/Install-Greasy%20Fork-red)](https://greasyfork.org/zh-CN/scripts/563029-lmarena-manager)
 
 **方式二：手动安装**
 
@@ -97,13 +97,35 @@ Kwai
 
 ## 📝 更新日志
 
+### v4.3.0 (2026-01-17)
+
+#### 🌟 新增与优化
+*   **智能折叠逻辑优化**
+    *   现在“📁 更多公司”折叠夹仅在 `All` 和 `LLM` 模式下启用。
+    *   切换到模型较少的 `Search`、`Image`、`Code`、`Video` 模式时，所有公司将自动展开，方便直接查找。
+*   **上栏布局重构**
+    *   上栏按钮现在支持自动换行，彻底去除了横向滚动条。
+    *   优化了按钮尺寸和间距，布局更紧凑、美观。
+    *   主面板宽度限制适当增大，适应更多内容显示。
+*   **排序功能增强**
+    *   **修复了折叠夹内无法排序的问题**：现在支持在“更多公司”文件夹内部拖拽调整公司顺序。
+
+#### 🐛 问题修复
+*   **界面修复**：修复了左侧栏“更多公司”行与其他公司行的统计数字无法垂直对齐的视觉瑕疵。
+*   **图标修复**：修复了 **MicrosoftAI** (Copilot/Bing) 图标无法正常显示的问题。
+*   **代码清理**：优化了部分内部逻辑。
+
+---
+
 ### v4.1.0 (2026-01-10)
-- ✨ 支持5种Arena模式：LLM/Search/Image/Code/Video
-- ✨ 智能识别60+公司
-- ✨ 公司拖拽排序
-- ✨ 模型手动编辑
-- ✨ 清空列表功能
-- 🐛 修复Code模式分类逻辑
+
+*   ✨ **核心功能**：支持 5 种 Arena 模式切换 (LLM / Search / Image / Code / Video)。
+*   ✨ **智能识别**：内置 60+ 家主流 AI 公司的识别规则。
+*   ✨ **交互升级**：支持公司列表拖拽排序。
+*   ✨ **自定义**：支持模型信息手动编辑。
+*   ✨ **工具**：新增清空列表/重置功能。
+*   🐛 **修复**：修正 Code 模式下的分类逻辑问题。
+
 
 ### v1.0.0
 - 初始版本
