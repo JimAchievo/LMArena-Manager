@@ -1087,7 +1087,7 @@
       "imageType": null
     },
     "qwen3-coder-480b-a35b-instruct": {
-      "visible": true,
+      "visible": false,
       "company": "Alibaba",
       "icon": "🟣",
       "companyManual": false,
@@ -1972,7 +1972,7 @@
       "hasVision": true
     },
     "qwen3-max-2025-09-26": {
-      "visible": true,
+      "visible": false,
       "company": "Alibaba",
       "icon": "🟣",
       "companyManual": false,
@@ -3382,6 +3382,80 @@
       "isNew": false,
       "addedAt": 1769390179643,
       "imageType": null
+    },
+    "kimi-k2.5": {
+      "visible": true,
+      "company": "Moonshot",
+      "icon": "🌙",
+      "companyManual": false,
+      "modes": [
+        "text"
+      ],
+      "categories": [],
+      "categoriesManual": false,
+      "starred": false,
+      "starredAt": null,
+      "isNew": false,
+      "addedAt": 1769520806714,
+      "imageType": null,
+      "hasVision": true
+    },
+    "qwen3-max-thinking": {
+      "visible": true,
+      "company": "Alibaba",
+      "icon": "🟣",
+      "companyManual": false,
+      "modes": [
+        "text"
+      ],
+      "categories": [
+        "thinking",
+        "pro",
+        "oss"
+      ],
+      "categoriesManual": false,
+      "starred": false,
+      "starredAt": null,
+      "isNew": false,
+      "addedAt": 1769520806715,
+      "imageType": null,
+      "hasVision": false
+    },
+    "molmo-2-8b": {
+      "visible": true,
+      "company": "Allen AI",
+      "icon": "🔬",
+      "companyManual": false,
+      "modes": [
+        "text"
+      ],
+      "categories": [
+        "oss"
+      ],
+      "categoriesManual": false,
+      "starred": false,
+      "starredAt": null,
+      "isNew": false,
+      "addedAt": 1769520806716,
+      "imageType": null,
+      "hasVision": true
+    },
+    "hunyuan-image-3.0-instruct": {
+      "visible": true,
+      "company": "Tencent",
+      "icon": "🐧",
+      "companyManual": false,
+      "modes": [
+        "image"
+      ],
+      "categories": [],
+      "categoriesManual": false,
+      "starred": false,
+      "starredAt": null,
+      "isNew": false,
+      "addedAt": 1769520808287,
+      "imageType": "i2i",
+      "hasVision": true
     }
   },
   "orgOrder": {
