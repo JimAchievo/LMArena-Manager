@@ -1,22 +1,26 @@
 // ==UserScript==
 // @name         Arena Manager
 // @namespace    http://tampermonkey.net/
-// @version      4.6.1
+// @version      4.6.2
 // @description  智能管理 Arena 模型显示 - 搜索增强、自定义分组、多视图模式
 // @author       Arena Manager Team
 // @match        https://arena.ai/*
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @grant        GM_addStyle
+// @grant        GM_xmlhttpRequest
+// @connect      api.github.com
 // @run-at       document-idle
 // @license MIT
+// @downloadURL https://update.greasyfork.org/scripts/563029/Arena%20Manager.user.js
+// @updateURL https://update.greasyfork.org/scripts/563029/Arena%20Manager.meta.js
 // ==/UserScript==
 
 (function() {
     'use strict';
 
     const STORAGE_KEY = 'arena_manager_v5';
-    const VERSION = '4.6.1';
+    const VERSION = '4.6.2';
 
     // ==================== 1. 国际化系统 ====================
     const I18N = {
@@ -133,7 +137,18 @@
                 inputNewName: '输入新名称',
                 confirmDelete: '确定删除分组"{0}"吗？',
                 on: '开',
-                off: '关'
+                off: '关',
+                syncUpload: '上传到云端',
+                syncDownload: '从云端下载',
+                uploadSuccess: '上传成功',
+                downloadSuccess: '下载成功，页面即将刷新',
+                confirmDownload: '下载将覆盖本地所有数据，确定继续吗？',
+                noGistId: '请先输入 Gist ID 或先上传一次',
+                tokenRequired: '请输入 GitHub Token',
+                gistIdSaved: 'Gist ID 已自动保存',
+                networkError: '网络错误',
+                invalidToken: 'Token 无效或权限不足',
+                gistNotFound: 'Gist 不存在'
             }
         },
         'en': {
@@ -249,7 +264,18 @@
                 inputNewName: 'Enter new name',
                 confirmDelete: 'Delete group "{0}"?',
                 on: 'On',
-                off: 'Off'
+                off: 'Off',
+                syncUpload: 'Upload',
+                syncDownload: 'Download',
+                uploadSuccess: 'Upload successful',
+                downloadSuccess: 'Download successful, page will refresh',
+                confirmDownload: 'Download will overwrite all local data. Continue?',
+                noGistId: 'Please enter Gist ID or upload first',
+                tokenRequired: 'Please enter GitHub Token',
+                gistIdSaved: 'Gist ID saved',
+                networkError: 'Network error',
+                invalidToken: 'Invalid token or insufficient permissions',
+                gistNotFound: 'Gist not found'
             }
         },
         'zh-TW': {
@@ -365,7 +391,18 @@
                 inputNewName: '輸入新名稱',
                 confirmDelete: '確定刪除分組「{0}」嗎？',
                 on: '開',
-                off: '關'
+                off: '關',
+                syncUpload: '上傳到雲端',
+                syncDownload: '從雲端下載',
+                uploadSuccess: '上傳成功',
+                downloadSuccess: '下載成功，頁面即將刷新',
+                confirmDownload: '下載將覆蓋本地所有資料，確定繼續嗎？',
+                noGistId: '請先輸入 Gist ID 或先上傳一次',
+                tokenRequired: '請輸入 GitHub Token',
+                gistIdSaved: 'Gist ID 已自動儲存',
+                networkError: '網路錯誤',
+                invalidToken: 'Token 無效或權限不足',
+                gistNotFound: 'Gist 不存在'
             }
         },
         'ja': {
@@ -481,7 +518,18 @@
                 inputNewName: '新しい名前を入力',
                 confirmDelete: 'グループ「{0}」を削除しますか？',
                 on: 'オン',
-                off: 'オフ'
+                off: 'オフ',
+                syncUpload: 'アップロード',
+                syncDownload: 'ダウンロード',
+                uploadSuccess: 'アップロード成功',
+                downloadSuccess: 'ダウンロード成功、ページを更新します',
+                confirmDownload: 'ダウンロードするとローカルデータが上書きされます。続行しますか？',
+                noGistId: 'Gist IDを入力するか、先にアップロードしてください',
+                tokenRequired: 'GitHub Tokenを入力してください',
+                gistIdSaved: 'Gist IDを保存しました',
+                networkError: 'ネットワークエラー',
+                invalidToken: 'Tokenが無効または権限不足',
+                gistNotFound: 'Gistが見つかりません'
             }
         },
         'ko': {
@@ -597,7 +645,18 @@
                 inputNewName: '새 이름 입력',
                 confirmDelete: '그룹 "{0}"을(를) 삭제하시겠습니까?',
                 on: '켜기',
-                off: '끄기'
+                off: '끄기',
+                syncUpload: '업로드',
+                syncDownload: '다운로드',
+                uploadSuccess: '업로드 성공',
+                downloadSuccess: '다운로드 성공, 페이지가 새로고침됩니다',
+                confirmDownload: '다운로드하면 로컬 데이터가 덮어쓰기됩니다. 계속하시겠습니까?',
+                noGistId: 'Gist ID를 입력하거나 먼저 업로드하세요',
+                tokenRequired: 'GitHub Token을 입력하세요',
+                gistIdSaved: 'Gist ID 저장됨',
+                networkError: '네트워크 오류',
+                invalidToken: '토큰이 유효하지 않거나 권한이 부족합니다',
+                gistNotFound: 'Gist를 찾을 수 없습니다'
             }
         },
         'es': {
@@ -713,7 +772,18 @@
                 inputNewName: 'Ingrese nuevo nombre',
                 confirmDelete: '¿Eliminar grupo "{0}"?',
                 on: 'Activado',
-                off: 'Desactivado'
+                off: 'Desactivado',
+                syncUpload: 'Subir',
+                syncDownload: 'Descargar',
+                uploadSuccess: 'Subida exitosa',
+                downloadSuccess: 'Descarga exitosa, la página se actualizará',
+                confirmDownload: 'La descarga sobrescribirá todos los datos locales. ¿Continuar?',
+                noGistId: 'Ingrese el Gist ID o suba primero',
+                tokenRequired: 'Ingrese el GitHub Token',
+                gistIdSaved: 'Gist ID guardado',
+                networkError: 'Error de red',
+                invalidToken: 'Token inválido o permisos insuficientes',
+                gistNotFound: 'Gist no encontrado'
             }
         },
         'fr': {
@@ -829,7 +899,18 @@
                 inputNewName: 'Entrez un nouveau nom',
                 confirmDelete: 'Supprimer le groupe "{0}"?',
                 on: 'Activé',
-                off: 'Désactivé'
+                off: 'Désactivé',
+                syncUpload: 'Téléverser',
+                syncDownload: 'Télécharger',
+                uploadSuccess: 'Téléversement réussi',
+                downloadSuccess: 'Téléchargement réussi, la page va se rafraîchir',
+                confirmDownload: 'Le téléchargement écrasera toutes les données locales. Continuer?',
+                noGistId: 'Veuillez entrer le Gist ID ou téléverser d\'abord',
+                tokenRequired: 'Veuillez entrer le GitHub Token',
+                gistIdSaved: 'Gist ID enregistré',
+                networkError: 'Erreur réseau',
+                invalidToken: 'Token invalide ou permissions insuffisantes',
+                gistNotFound: 'Gist non trouvé'
             }
         },
         'de': {
@@ -945,7 +1026,18 @@
                 inputNewName: 'Neuen Namen eingeben',
                 confirmDelete: 'Gruppe "{0}" löschen?',
                 on: 'An',
-                off: 'Aus'
+                off: 'Aus',
+                syncUpload: 'Hochladen',
+                syncDownload: 'Herunterladen',
+                uploadSuccess: 'Upload erfolgreich',
+                downloadSuccess: 'Download erfolgreich, Seite wird aktualisiert',
+                confirmDownload: 'Der Download überschreibt alle lokalen Daten. Fortfahren?',
+                noGistId: 'Bitte Gist ID eingeben oder zuerst hochladen',
+                tokenRequired: 'Bitte GitHub Token eingeben',
+                gistIdSaved: 'Gist ID gespeichert',
+                networkError: 'Netzwerkfehler',
+                invalidToken: 'Token ungültig oder unzureichende Berechtigungen',
+                gistNotFound: 'Gist nicht gefunden'
             }
         },
         'ru': {
@@ -1061,7 +1153,18 @@
                 inputNewName: 'Введите новое название',
                 confirmDelete: 'Удалить группу "{0}"?',
                 on: 'Вкл',
-                off: 'Выкл'
+                off: 'Выкл',
+                syncUpload: 'Загрузить',
+                syncDownload: 'Скачать',
+                uploadSuccess: 'Загрузка успешна',
+                downloadSuccess: 'Скачивание успешно, страница обновится',
+                confirmDownload: 'Скачивание перезапишет все локальные данные. Продолжить?',
+                noGistId: 'Введите Gist ID или сначала загрузите',
+                tokenRequired: 'Введите GitHub Token',
+                gistIdSaved: 'Gist ID сохранён',
+                networkError: 'Ошибка сети',
+                invalidToken: 'Недействительный токен или недостаточно прав',
+                gistNotFound: 'Gist не найден'
             }
         }
     };
@@ -1219,7 +1322,8 @@
             if (this.data.settings.showNewAlert === undefined) this.data.settings.showNewAlert = true;
             if (this.data.settings.defaultVisible === undefined) this.data.settings.defaultVisible = true;
             if (!this.data.settings.language) this.data.settings.language = 'zh-CN';
-            if (!this.data.settings.gist) this.data.settings.gist = { token: '', gistId: '' };
+            if (!this.data.settings.gistId) this.data.settings.gistId = '';
+            if (!this.data.settings.gistToken) this.data.settings.gistToken = '';
             if (!this.data.modelOrder) this.data.modelOrder = { text: [], search: [], image: [], code: [], video: [] };
             if (!this.data.groups) this.data.groups = {};
             ['text', 'search', 'image', 'code', 'video'].forEach(mode => {
@@ -1279,7 +1383,15 @@
         }
 
         clearNewFlags() { Object.keys(this.data.models).forEach(k => { this.data.models[k].isNew = false; }); this.save(); }
-        export() { return JSON.stringify(this.data, null, 2); }
+        export() {
+            // 深拷贝，避免修改原数据
+            const data = JSON.parse(JSON.stringify(this.data));
+            // 导出时排除 Token
+            if (data.settings) {
+                delete data.settings.gistToken;
+            }
+            return JSON.stringify(data, null, 2);
+        }
         import(json) { try { this.data = JSON.parse(json); this.ensureDefaults(); this.save(); return true; } catch { return false; } }
         resetAll() { this.data = {}; this.ensureDefaults(); this.save(); }
 
@@ -2127,45 +2239,48 @@
             modal.className = 'lmm-modal';
             modal.style.minWidth = '400px';
             modal.innerHTML = `
-                <div class="lmm-modal-title">⚙️ <span data-i18n="settingsTitle"></span></div>
-                <div class="lmm-modal-body">
-                    <div class="lmm-setting-row">
-                        <div class="lmm-setting-info">
-                            <div class="lmm-setting-title" data-i18n="language"></div>
-                        </div>
-                        <select class="lmm-select" id="lmm-setting-lang" style="width:140px"></select>
-                    </div>
-                    <div class="lmm-setting-row">
-                        <div class="lmm-setting-info">
-                            <div class="lmm-setting-title" data-i18n="newModelAlert"></div>
-                            <div class="lmm-setting-desc" data-i18n="newModelAlertDesc"></div>
-                        </div>
-                        <div class="lmm-switch" id="lmm-setting-alert"></div>
-                    </div>
-                    <div class="lmm-setting-row" style="flex-direction:column;align-items:stretch;gap:8px">
-                        <div class="lmm-setting-title" data-i18n="cloudSync"></div>
-                        <div class="lmm-form-group" style="margin:0">
-                            <label class="lmm-form-label" data-i18n="gistToken"></label>
-                            <input type="password" class="lmm-form-input" id="lmm-setting-gist-token" data-i18n-placeholder="gistTokenPlaceholder">
-                        </div>
-                        <div class="lmm-form-group" style="margin:0">
-                            <label class="lmm-form-label" data-i18n="gistId"></label>
-                            <input type="text" class="lmm-form-input" id="lmm-setting-gist-id" data-i18n-placeholder="gistIdPlaceholder">
-                        </div>
-                        <button class="lmm-btn lmm-btn-primary" id="lmm-setting-sync" style="align-self:flex-start" data-i18n="syncNow"></button>
-                    </div>
-                    <div class="lmm-setting-row" style="border-top:2px solid var(--lmm-danger);margin-top:12px;padding-top:12px">
-                        <div class="lmm-setting-info">
-                            <div class="lmm-setting-title" style="color:var(--lmm-danger)" data-i18n="resetData"></div>
-                            <div class="lmm-setting-desc" data-i18n="resetDataDesc"></div>
-                        </div>
-                        <button class="lmm-btn lmm-btn-danger" id="lmm-setting-reset" data-i18n="reset"></button>
-                    </div>
+        <div class="lmm-modal-title">⚙️ <span data-i18n="settingsTitle"></span></div>
+        <div class="lmm-modal-body">
+            <div class="lmm-setting-row">
+                <div class="lmm-setting-info">
+                    <div class="lmm-setting-title" data-i18n="language"></div>
                 </div>
-                <div class="lmm-modal-footer">
-                    <button class="lmm-btn lmm-btn-primary" id="lmm-settings-close" data-i18n="close"></button>
+                <select class="lmm-select" id="lmm-setting-lang" style="width:140px"></select>
+            </div>
+            <div class="lmm-setting-row">
+                <div class="lmm-setting-info">
+                    <div class="lmm-setting-title" data-i18n="newModelAlert"></div>
+                    <div class="lmm-setting-desc" data-i18n="newModelAlertDesc"></div>
                 </div>
-            `;
+                <div class="lmm-switch" id="lmm-setting-alert"></div>
+            </div>
+            <div class="lmm-setting-row" style="flex-direction:column;align-items:stretch;gap:8px">
+                <div class="lmm-setting-title" data-i18n="cloudSync"></div>
+                <div class="lmm-form-group" style="margin:0">
+                    <label class="lmm-form-label" data-i18n="gistToken"></label>
+                    <input type="password" class="lmm-form-input" id="lmm-setting-gist-token" data-i18n-placeholder="gistTokenPlaceholder">
+                </div>
+                <div class="lmm-form-group" style="margin:0">
+                    <label class="lmm-form-label" data-i18n="gistId"></label>
+                    <input type="text" class="lmm-form-input" id="lmm-setting-gist-id" data-i18n-placeholder="gistIdPlaceholder">
+                </div>
+                <div style="display:flex;gap:8px">
+                    <button class="lmm-btn lmm-btn-primary" id="lmm-setting-upload">📤 <span data-i18n="syncUpload"></span></button>
+                    <button class="lmm-btn" id="lmm-setting-download">📥 <span data-i18n="syncDownload"></span></button>
+                </div>
+            </div>
+            <div class="lmm-setting-row" style="border-top:2px solid var(--lmm-danger);margin-top:12px;padding-top:12px">
+                <div class="lmm-setting-info">
+                    <div class="lmm-setting-title" style="color:var(--lmm-danger)" data-i18n="resetData"></div>
+                    <div class="lmm-setting-desc" data-i18n="resetDataDesc"></div>
+                </div>
+                <button class="lmm-btn lmm-btn-danger" id="lmm-setting-reset" data-i18n="reset"></button>
+            </div>
+        </div>
+        <div class="lmm-modal-footer">
+            <button class="lmm-btn lmm-btn-primary" id="lmm-settings-close" data-i18n="close"></button>
+        </div>
+    `;
             document.body.appendChild(modal);
             this.settingsModal = modal;
 
@@ -2194,7 +2309,8 @@
                 this.dm.save();
             };
 
-            modal.querySelector('#lmm-setting-sync').onclick = () => this.syncGist();
+            modal.querySelector('#lmm-setting-upload').onclick = () => this.gistUpload();
+            modal.querySelector('#lmm-setting-download').onclick = () => this.gistDownload();
 
             modal.querySelector('#lmm-setting-reset').onclick = () => {
                 this.closeSettingsModal();
@@ -2245,61 +2361,179 @@
             modal.querySelector('#lmm-group-select-close').onclick = () => this.closeGroupSelectModal();
         }
 
-        async syncGist() {
+        // 使用 GM_xmlhttpRequest 封装的 Promise 请求
+        gmFetch(options) {
+            const self = this;// 保存 this 引用
+            return new Promise((resolve, reject) => {
+                GM_xmlhttpRequest({
+                    ...options,
+                    onload: (response) => {
+                        if (response.status >= 200 && response.status < 300) {
+                            resolve({
+                                ok: true,
+                                status: response.status,
+                                json: () => Promise.resolve(JSON.parse(response.responseText)),
+                                text: () => Promise.resolve(response.responseText)
+                            });
+                        } else {
+                            resolve({
+                                ok: false,
+                                status: response.status,
+                                statusText: response.statusText
+                            });
+                        }
+                    },
+                    onerror: (error) => {
+                        reject(new Error(self.t('networkError')));
+                    },
+                    ontimeout: () => {
+                        reject(new Error(self.t('networkError')));
+                    }
+                });
+            });
+        }
+
+        async gistUpload() {
             const token = this.settingsModal.querySelector('#lmm-setting-gist-token').value.trim();
             let gistId = this.settingsModal.querySelector('#lmm-setting-gist-id').value.trim();
 
             if (!token) {
-                this.scanner.toast(this.t('gistTokenPlaceholder'), 'warning');
+                this.scanner.toast(this.t('tokenRequired'), 'warning');
                 return;
             }
 
-            this.dm.data.settings.gist = { token, gistId };
+            // 保存 Token 和 gistId 到本地存储
+            this.dm.data.settings.gistToken = token;
+            this.dm.data.settings.gistId = gistId;
             this.dm.save();
 
+            // export() 会自动排除 Token
             const data = this.dm.export();
-            const filename = 'Arena-manager-data.json';
+            const filename = 'arena-manager-data.json';
 
             try {
+                let res;
                 if (gistId) {
-                    // 更新现有 Gist
-                    const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+                    res = await this.gmFetch({
                         method: 'PATCH',
+                        url: `https://api.github.com/gists/${gistId}`,
                         headers: {
                             'Authorization': `token ${token}`,
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/vnd.github.v3+json'
                         },
-                        body: JSON.stringify({
+                        data: JSON.stringify({
                             files: { [filename]: { content: data } }
                         })
                     });
-                    if (!res.ok) throw new Error('Update failed');
                 } else {
-                    // 创建新 Gist
-                    const res = await fetch('https://api.github.com/gists', {
+                    res = await this.gmFetch({
                         method: 'POST',
+                        url: 'https://api.github.com/gists',
                         headers: {
                             'Authorization': `token ${token}`,
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/vnd.github.v3+json'
                         },
-                        body: JSON.stringify({
-                            description: 'Arena Manager Data',
+                        data: JSON.stringify({
+                            description: 'Arena Manager Data Backup',
                             public: false,
                             files: { [filename]: { content: data } }
                         })
                     });
-                    if (!res.ok) throw new Error('Create failed');
-                    const result = await res.json();
+                }
+
+                if (!res.ok) {
+                    if (res.status === 401) throw new Error(this.t('invalidToken'));
+                    if (res.status === 404) throw new Error(this.t('gistNotFound'));
+                    throw new Error(`HTTP ${res.status}`);
+                }
+
+                const result = await res.json();
+
+                if (!gistId && result.id) {
                     gistId = result.id;
                     this.settingsModal.querySelector('#lmm-setting-gist-id').value = gistId;
-                    this.dm.data.settings.gist.gistId = gistId;
+                    this.dm.data.settings.gistId = gistId;
                     this.dm.save();
+                    this.scanner.toast(`${this.t('uploadSuccess')} - ${this.t('gistIdSaved')}`, 'success');
+                } else {
+                    this.scanner.toast(this.t('uploadSuccess'), 'success');
                 }
-                this.scanner.toast(this.t('saved'), 'success');
             } catch (e) {
-                console.error('[LMM] Gist sync error:', e);
-                this.scanner.toast('Sync failed: ' + e.message, 'warning');
+                console.error('[Arena Manager] Gist upload error:', e);
+                this.scanner.toast(`${this.t('syncError')}: ${e.message}`, 'warning');
             }
+        }
+
+        async gistDownload() {
+            // Token 只从输入框获取（不持久化）
+            const token = this.settingsModal.querySelector('#lmm-setting-gist-token').value.trim();
+            // gistId 优先从输入框，其次从存储
+            let gistId = this.settingsModal.querySelector('#lmm-setting-gist-id').value.trim();
+            if (!gistId) gistId = this.dm.data.settings.gistId || '';
+
+            if (!token) {
+                this.scanner.toast(this.t('tokenRequired'), 'warning');
+                return;
+            }
+
+            if (!gistId) {
+                this.scanner.toast(this.t('noGistId'), 'warning');
+                return;
+            }
+
+            // 保存 gistId
+            this.dm.data.settings.gistId = gistId;
+            this.dm.save();
+
+            this.closeSettingsModal();
+
+            this.showConfirm(this.t('syncDownload'), this.t('confirmDownload'), async () => {
+                try {
+                    const res = await this.gmFetch({
+                        method: 'GET',
+                        url: `https://api.github.com/gists/${gistId}`,
+                        headers: {
+                            'Authorization': `token ${token}`,
+                            'Accept': 'application/vnd.github.v3+json'
+                        }
+                    });
+
+                    if (!res.ok) {
+                        if (res.status === 401) throw new Error(this.t('invalidToken'));
+                        if (res.status === 404) throw new Error(this.t('gistNotFound'));
+                        throw new Error(`HTTP ${res.status}`);
+                    }
+
+                    const result = await res.json();
+                    const filename = 'arena-manager-data.json';
+
+                    let file = result.files?.[filename];
+                    // 兼容旧文件名
+                    if (!file) {
+                        file = result.files?.['lmarena-manager-data.json'];
+                    }
+
+                    if (!file || !file.content) {
+                        throw new Error('File not found in Gist');
+                    }
+
+                    if (this.dm.import(file.content)) {
+                        // 恢复 gistId（因为导入会覆盖）
+                        this.dm.data.settings.gistId = gistId;
+                        this.dm.save();
+
+                        this.scanner.toast(this.t('downloadSuccess'), 'success');
+                        setTimeout(() => location.reload(), 1500);
+                    } else {
+                        throw new Error('Invalid data format');
+                    }
+                } catch (e) {
+                    console.error('[Arena Manager] Gist download error:', e);
+                    this.scanner.toast(`${this.t('syncError')}: ${e.message}`, 'warning');
+                }
+            });
         }
 
         showConfirm(title, msg, onConfirm) {
@@ -3430,9 +3664,9 @@
             const alertSwitch = this.settingsModal.querySelector('#lmm-setting-alert');
             alertSwitch.classList.toggle('on', this.dm.data.settings.showNewAlert);
 
-            const gist = this.dm.data.settings.gist || {};
-            this.settingsModal.querySelector('#lmm-setting-gist-token').value = gist.token || '';
-            this.settingsModal.querySelector('#lmm-setting-gist-id').value = gist.gistId || '';
+            // 恢复 Token 和 gistId
+            this.settingsModal.querySelector('#lmm-setting-gist-token').value = this.dm.data.settings.gistToken || '';
+            this.settingsModal.querySelector('#lmm-setting-gist-id').value = this.dm.data.settings.gistId || '';
 
             this.updateSettingsModalI18n();
             this.settingsModalOverlay.classList.add('open');
