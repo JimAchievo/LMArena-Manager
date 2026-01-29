@@ -1,12 +1,6 @@
-# 🎛️ LMArena Manager
+# 🎛️ Arena Manager - 智能模型管理助手
 
-> 智能管理 LMArena 模型显示的油猴脚本
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tampermonkey](https://img.shields.io/badge/Tampermonkey-Ready-brightgreen.svg)](https://www.tampermonkey.net/)
-[![GreasyFork](https://img.shields.io/badge/Install-Greasy%20Fork-red)](https://greasyfork.org/zh-CN/scripts/563029-lmarena-manager)
-
-> **告别混乱的模型列表！** LMArena Manager 是一个为 [LMArena](https://lmarena.ai) 量身定制的高级管理工具，助你轻松筛选、分类和管理上百个 AI 模型。支持 **Text**、**Code**、**Image** 等多种模式的独立管理与排序。
+> **告别混乱的模型列表！** Arena Manager 是一个为 [Arena](https://arena.ai) 量身定制的高级管理工具，助你轻松筛选、分类和管理上百个 AI 模型。支持 **Text**、**Code**、**Image** 等多种模式的独立管理与排序。
 
 # ✨ 核心特性
 
@@ -19,12 +13,12 @@
 
 ## 📸 截图预览
 
-![主界面](./screenshots/edit.png)
-![效果](./screenshots/result.png)
+![主界面](https://raw.githubusercontent.com/JimAchievo/Arena-Manager/main/screenshots/edit.png)
+![效果](https://raw.githubusercontent.com/JimAchievo/Arena-Manager/main/screenshots/result.png)
 
 ## 🎮 支持的 Arena 模式
 
-脚本完美适配 LMArena 的所有评测模式：
+脚本完美适配 Arena 的所有评测模式：
 
 | 模式 | 图标 | 说明 |
 |------|------|------|
@@ -34,33 +28,14 @@
 | Code | 💻 |代码编程专用 |
 | Video | 🎬 | 视频生成模型（预留） |
 
-## 📦 安装
-
-### 前置要求
-- 浏览器安装 [Tampermonkey](https://www.tampermonkey.net/) 或 [Violentmonkey](https://violentmonkey.github.io/)
-
-### 安装方式
-
-**方式一：从 Greasy Fork 安装（推荐）**
-
-[![Install from Greasy Fork](https://img.shields.io/badge/Install-Greasy%20Fork-red)](https://greasyfork.org/zh-CN/scripts/563029-lmarena-manager)
-
-**方式二：手动安装**
-
-1. 点击浏览器扩展图标 → 添加新脚本
-2. 复制 [`LMArena Manager.user.js`](./LMArena%20Manager.user.js) 内容
-3. 保存并启用
-
 ## 🚀 使用方法
 
-1. 访问 [LMArena](https://lmarena.ai)
-2. 点击页面上的模型选择下拉框（让模型列表加载）
-3. 点击右上角 **🎛️** 按钮 或按 **Ctrl+Shift+M**
-4. 点击 **🔄 扫描** 获取模型列表
-5. **单击**模型卡片切换显示/隐藏
-6. **双击**模型卡片编辑详细信息
-7. 点击 **✓ 应用** 使更改生效
-8. 其余功能欢迎自行探索！
+1. 访问 [Arena](https://arena.ai)
+2. 点击页面上的模型选择下拉框（让模型列表加载），即可自动扫描
+3. 点击右上角 **🎛️** 按钮 或按 **Ctrl+Shift+M**开启管理面板
+4。 **单击**模型卡片切换显示/隐藏
+5。 **已启动**中调整模型顺序
+6. 其余功能欢迎自行探索！
 
 ## ⌨️ 快捷键
 
@@ -189,7 +164,7 @@
 - 新增 `createSettingsModal()`、`createGroupSelectModal()` 等模态框
 - 多选模式状态管理：`isMultiSelectMode`、`selectedModels`、`multiSelectBackup`
 
-###v4.5.1 (2026-01-27)
+####v4.5.1 (2026-01-27)
 
 - 添加了“molmo”特征词至“Allen AI”组织
 - 紧急修复Side by Side模式下只有一个下拉栏被展示的严重漏洞
@@ -199,7 +174,7 @@
 #### 🎉 核心亮点
 - **🏢 组织化管理体系升级**：全面用“组织”替代“公司”，各模式拥有独立的组织排序与显示规则。
 - **🖼️ 图像模型智能分类**：Image 模式下自动识别 Vision/RIU 标记，细分为“综合”、“仅文生图”、“仅图生图”三类。
-- **🔄 全面支持 LMArena 新界面**：完美兼容下拉栏与抽屉式两种布局，修复隐藏失效问题。
+- **🔄 全面支持 Arena 新界面**：完美兼容下拉栏与抽屉式两种布局，修复隐藏失效问题。
 - **🧩 排序与自定义功能增强**：新增组织顺序、模型顺序及模型属性的“恢复默认”功能。
 
 ---
@@ -208,7 +183,7 @@
 
 1. **组织化配置体系**
    - 为 Text、Search、Image、Code、Video 分别定义独立的组织排序与折叠规则。
-   - 新增（预留）Pruna、01 AI、NexusFlow 等组织，更新组织名称与图标（如 LongCat → Meituan，Flux → Black Forest Labs）。
+   - 新增 Pruna、01 AI、NexusFlow 等组织，更新组织名称与图标（如 LongCat → Meituan，Flux → Black Forest Labs）。
 
 2. **图像模型深度分类**
    - Image 模式下，左侧栏新增“按类型”分类，根据 Vision 与 RIU 标记自动分为：
@@ -223,7 +198,7 @@
    - 模型编辑窗口新增 **“恢复默认”按钮**，一键重置该模型的组织、模式、标签为自动识别结果。
 
 4. **兼容性强化**
-   - 完全支持 LMArena 新增的 **抽屉式布局**（纵横比过大时触发），模型隐藏与排序功能在两种布局下均正常生效。
+   - 完全支持 Arena 新增的 **抽屉式布局**（纵横比过大时触发），模型隐藏与排序功能在两种布局下均正常生效。
    - 扫描器与过滤器自动识别当前 UI 模式，确保操作一致。
 
 ---
@@ -251,7 +226,7 @@
 
 #### 🐛 问题修复
 
-- **修复隐藏功能失效**：完全重写扫描器与过滤器，兼容 LMArena 新下拉栏架构与抽屉布局。
+- **修复隐藏功能失效**：完全重写扫描器与过滤器，兼容 Arena 新下拉栏架构与抽屉布局。
 - **修复组织名称不一致**：统一处理“Z.ai”（原 Zhipu、Zhipu AI）、“Qwen”归入“Alibaba”、“Microsoft”归入“Microsoft AI”等。
 - **修复排序漂移**：确保自定义模型排序保存与应用更稳定。
 - **修复 Vision 标记识别**：准确读取 SVG 图标类名，过滤更精准。
@@ -299,40 +274,17 @@
 *   **图标修复**：修复了 **MicrosoftAI** (Copilot/Bing) 图标无法正常显示的问题。
 *   **代码清理**：优化了部分内部逻辑。
 
----
-
 ### v4.1.0 (2026-01-10)
-
-*   ✨ **核心功能**：支持 5 种 Arena 模式切换 (LLM / Search / Image / Code / Video)。
-*   ✨ **智能识别**：内置 60+ 家主流 AI 公司的识别规则。
-*   ✨ **交互升级**：支持公司列表拖拽排序。
-*   ✨ **自定义**：支持模型信息手动编辑。
-*   ✨ **工具**：新增清空列表/重置功能。
-*   🐛 **修复**：修正 Code 模式下的分类逻辑问题。
-
+*   ✨ 支持5种Arena模式切换。
+*   ✨ 智能识别60+公司。
+*   ✨ 新增公司拖拽排序与模型手动编辑。
+*   🐛 修复Code模式分类逻辑。
 
 ### v1.0.0
 - 初始版本
 
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=JimAchievo/LMArena-Manager&type=date&legend=top-left)](https://www.star-history.com/#JimAchievo/LMArena-Manager&type=date&legend=top-left)
-
-## 🤝 贡献
-
-欢迎提交 Issue 和 Pull Request！
-
-- 🐛 Bug 反馈请附带浏览器版本和控制台错误信息
-- ✨ 新功能建议请描述使用场景
-
-## 📄 许可证
-
-[MIT License](./LICENSE)
-
 ## 🙏 致谢
 
-- [LMArena](https://lmarena.ai) - 模型评测平台
-- [Tampermonkey](https://www.tampermonkey.net/) - 用户脚本管理器
+- [Arena](https://arena.ai) - 模型评测平台
 
-
-**如果这个项目对你有帮助，欢迎 ⭐ Star！**
+**如果这个脚本对你有帮助，请不要吝啬你的好评！⭐⭐⭐⭐⭐**
