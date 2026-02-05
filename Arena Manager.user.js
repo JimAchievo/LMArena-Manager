@@ -1406,7 +1406,7 @@
 
     const MODE_ORG_CONFIG = {
         text: {
-            tier1: ['Google', 'Anthropic', 'xAI', 'OpenAI', 'Baidu', 'Z.ai', 'Alibaba', 'Moonshot', 'DeepSeek', 'Mistral', 'MiniMax', 'Bytedance'],
+            tier1: ['Google', 'xAI', 'Anthropic', 'OpenAI', 'Baidu', 'Moonshot', 'Z.ai', 'Alibaba', 'DeepSeek', 'Mistral', 'MiniMax', 'Bytedance'],
             tier2: ['Meituan', 'Amazon', 'Xiaomi', 'Tencent', 'Microsoft AI', 'Prime Intellect', 'Cohere', 'Nvidia', 'Ant Group', 'StepFun', 'Meta', 'Allen AI', 'Inception AI', 'IBM', '01 AI', 'NexusFlow'],
             useFolder: true
         },
@@ -1416,13 +1416,13 @@
             useFolder: false
         },
         image: {
-            tier1: ['OpenAI', 'Google', 'xAI', 'Tencent', 'Bytedance', 'Alibaba', 'Black Forest Labs', 'Z.ai'],
+            tier1: ['OpenAI', 'Google', 'Black Forest Labs', 'Tencent', 'Bytedance', 'Alibaba', 'xAI', 'Z.ai'],
             tier2: ['Shengshu', 'Pruna', 'Microsoft AI', 'Ideogram', 'Luma AI', 'Recraft', 'Leonardo AI', 'Reve'],
             useFolder: true
         },
         code: {
-            tier1: ['Anthropic', 'OpenAI', 'Google', 'xAI', 'DeepSeek', 'Z.ai', 'Moonshot', 'Alibaba', 'MiniMax'],
-            tier2: ['Xiaomi', 'KwaiKAT', 'Mistral'],
+            tier1: ['Anthropic', 'OpenAI', 'Google', 'Moonshot', 'Z.ai', 'MiniMax', 'DeepSeek', 'Bytedance'],
+            tier2: ['Xiaomi', 'Alibaba', 'KwaiKAT', 'xAI', 'Mistral'],
             useFolder: true
         },
         video: {
