@@ -9,6 +9,7 @@
 - **🚀 多模式归属系统**：一个模型可以同时属于 Text 和 Code 面板，支持在不同场景下独立管理显隐和排序。
 - **🎯 "所见即所得" 精准扫描**：严格基于页面上下文识别模型类型，不再依赖不可靠的名字猜测，杜绝分类错误。
 - **🏢 智能厂商识别**：内置规则自动识别 **60+ 家**主流 AI 组织（OpenAI, Google, Anthropic, DeepSeek 等）。
+- **🔍 模型特性检测**：自动识别模型的视觉（Vision）和 PDF 上传能力，支持按特性筛选。
 - **📂 智能折叠**：自动收纳非核心组织，保持列表清爽；在模型较少的模式下自动展开。
 - **🔄 自定义排序**：支持拖拽调整组织顺序，把你喜欢的厂商排在最前。
 - **📋 模型详情**：查看和编辑模型的组织、图标、备注等信息。
@@ -103,19 +104,19 @@
 <summary>点击展开完整列表</summary>
 
 ### 📝 Text
-**主要组织**：Google, Anthropic, xAI, OpenAI, Baidu, Z.ai, Alibaba, Moonshot, DeepSeek, Mistral, MiniMax  
+**主要组织**：Google, xAI, Anthropic, OpenAI, Baidu, Moonshot, Z.ai, Alibaba, DeepSeek, Mistral, MiniMax, Bytedance
 **更多组织**：Meituan, Amazon, Xiaomi, Tencent, Microsoft AI, Prime Intellect, Cohere, Nvidia, Ant Group, StepFun, Meta, Allen AI, Inception AI, IBM, 01 AI, NexusFlow
 
 ### 🔍 Search
 **全部组织**：Google, OpenAI, xAI, Anthropic, Perplexity, Diffbot
 
 ### 🎨 Image
-**主要组织**：OpenAI, Google, xAI, Tencent, Bytedance, Alibaba, Black Forest Labs, Z.ai  
+**主要组织**：OpenAI, Google, Black Forest Labs, Tencent, Bytedance, Alibaba, xAI, Z.ai  
 **更多组织**：Shengshu, Pruna, Microsoft AI, Ideogram, Luma AI, Recraft, Leonardo AI, Reve
 
 ### 💻 Code
-**主要组织**：Anthropic, OpenAI, Google, xAI, DeepSeek, Z.ai, Moonshot, Alibaba, MiniMax  
-**更多组织**：Xiaomi, KwaiKAT, Mistral
+**主要组织**：Anthropic, OpenAI, Google, Moonshot, Z.ai, MiniMax, DeepSeek, Bytedance
+**更多组织**：Xiaomi, Alibaba, KwaiKAT, xAI, Mistral
 
 ### 🎬 Video
 *暂无专属组织（预留分类）*
@@ -127,6 +128,18 @@
 [![Star History Chart](https://api.star-history.com/svg?repos=JimAchievo/Arena-Manager&type=date&legend=top-left)](https://www.star-history.com/#JimAchievo/Arena-Manager&type=date&legend=top-left)
 
 ## 📝 更新日志
+
+### v4.7.1 (2026-02-06)
+
+#### ✨ 新增功能
+- **📄 PDF Upload 特性检测**：自动识别支持 PDF 上传的模型（Text/Code/Search 模式），左侧栏特性区域新增筛选项，模型卡片和详情面板中显示 📄 标签
+
+#### 🔧 改进
+- **同步间隔验证**：定时同步间隔现在会正确校验 1-60 范围，输入非法值时弹出提示
+- **移除"最新添加"排序**：该排序选项从未正常工作，已移除
+
+#### ⚙️ 技术优化
+- 内部参数 `imageFlags` 重命名为 `featureFlags`，更准确地反映其跨模式用途
 
 ### v4.7.0 (2026-02-04)
 
