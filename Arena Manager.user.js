@@ -1425,7 +1425,7 @@
             useFolder: false
         },
         image: {
-            tier1: ['OpenAI', 'Google', 'Black Forest Labs', 'Tencent', 'Bytedance', 'Alibaba', 'xAI', 'Z.ai'],
+            tier1: ['OpenAI', 'Google', 'xAI', 'Black Forest Labs', 'Tencent', 'Bytedance', 'Alibaba', 'Z.ai'],
             tier2: ['Shengshu', 'Pruna', 'Microsoft AI', 'Ideogram', 'Luma AI', 'Recraft', 'Leonardo AI', 'Reve'],
             useFolder: true
         },
